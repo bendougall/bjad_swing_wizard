@@ -72,6 +72,27 @@ public class BJADWizard<T> extends JPanel implements ActionListener
    protected AbstractWizardNavigator<T> navigator; 
    
    /**
+    * The text to show on the previous button.
+    */
+   protected String previousButtonText = "Previous";
+   
+   /**
+    * The text to show on the next button.
+    */
+   protected String nextButtonText = "Next";
+   
+   /**
+    * The text to show on the finish button.
+    */
+   protected String finishButtonText = "Finish";
+   
+   /**
+    * The amount of pixels to pad the buttons
+    * with.
+    */
+   protected int buttonLeftRightPadding = 10;
+   
+   /**
     * Constructor to create the double buffered wizard panel  
     * setting the initial data bean for the wizard to populate. 
     * 
@@ -195,7 +216,7 @@ public class BJADWizard<T> extends JPanel implements ActionListener
       this.previousButton.setEnabled(false == this.navigator.isFirstPage());
       
       // Re-label the next button based on the page index. 
-      this.nextButton.setText(this.navigator.isLastPage() ? "Finish" : "  Next  ");      
+      redoButtons();
    }
 
    /**
@@ -272,6 +293,84 @@ public class BJADWizard<T> extends JPanel implements ActionListener
    }
 
    /**
+    * Returns the value of the BJADWizard instance's 
+    * previousButtonText property.
+    *
+    * @return 
+    *   The value of previousButtonText
+    */
+   public String getPreviousButtonText()
+   {
+      return this.previousButtonText;
+   }
+
+   /**
+    * Sets the value of the BJADWizard instance's 
+    * previousButtonText property.
+    *
+    * @param previousButtonText 
+    *   The value to set within the instance's 
+    *   previousButtonText property
+    */
+   public void setPreviousButtonText(String previousButtonText)
+   {
+      this.previousButtonText = previousButtonText;
+      redoButtons();
+   }
+
+   /**
+    * Returns the value of the BJADWizard instance's 
+    * nextButtonText property.
+    *
+    * @return 
+    *   The value of nextButtonText
+    */
+   public String getNextButtonText()
+   {
+      return this.nextButtonText;
+   }
+
+   /**
+    * Sets the value of the BJADWizard instance's 
+    * nextButtonText property.
+    *
+    * @param nextButtonText 
+    *   The value to set within the instance's 
+    *   nextButtonText property
+    */
+   public void setNextButtonText(String nextButtonText)
+   {
+      this.nextButtonText = nextButtonText;
+      redoButtons();
+   }
+
+   /**
+    * Returns the value of the BJADWizard instance's 
+    * finishButtonText property.
+    *
+    * @return 
+    *   The value of finishButtonText
+    */
+   public String getFinishButtonText()
+   {
+      return this.finishButtonText;
+   }
+
+   /**
+    * Sets the value of the BJADWizard instance's 
+    * finishButtonText property.
+    *
+    * @param finishButtonText 
+    *   The value to set within the instance's 
+    *   finishButtonText property
+    */
+   public void setFinishButtonText(String finishButtonText)
+   {
+      this.finishButtonText = finishButtonText;
+      redoButtons();
+   }
+
+   /**
     * Moves the wizard to the previous screen
     * if the active screen is not the first screen.
     */
@@ -328,5 +427,17 @@ public class BJADWizard<T> extends JPanel implements ActionListener
             ((WizardFinishedListener<T>) listeners[i + 1]).wizardComplete(this.dataBean);
          }
       }
+   }
+   
+   private void redoButtons()
+   {
+      previousButton.setText(previousButtonText);
+      nextButton.setText(navigator.isLastPage() ? finishButtonText : nextButtonText);
+
+      buttonPanel.remove(previousButton);
+      buttonPanel.remove(nextButton);
+      
+      buttonPanel.add(previousButton);
+      buttonPanel.add(nextButton);
    }
 }
