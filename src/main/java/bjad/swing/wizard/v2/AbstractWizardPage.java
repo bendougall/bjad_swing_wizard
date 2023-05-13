@@ -21,6 +21,13 @@ public abstract class AbstractWizardPage<DATA_MODEL> extends JPanel
    private static final long serialVersionUID = 3341436796597789736L;
    
    /**
+    * The data model used in the wizard framework to share information 
+    * between the pages and possibly with the wizard at the start of
+    * the wizard.
+    */
+   protected DATA_MODEL dataModel;
+   
+   /**
     * Default Constructor, building the panel implementation with 
     * default options. 
     */
@@ -67,13 +74,6 @@ public abstract class AbstractWizardPage<DATA_MODEL> extends JPanel
       super(layout, isDoubleBuffered);
       buildPanel();
    }
-
-   /**
-    * The data model used in the wizard framework to share information 
-    * between the pages and possibly with the wizard at the start of
-    * the wizard.
-    */
-   protected DATA_MODEL dataModel;
 
    /**
     * Method to override in order to apply logic to the page after 
