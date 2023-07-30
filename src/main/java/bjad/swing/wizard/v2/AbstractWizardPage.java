@@ -142,12 +142,21 @@ public abstract class AbstractWizardPage<DATA_MODEL> extends JPanel
    /**
     * Method to implement in order to save data from the page to 
     * the data model being shared within the wizard framework.
+    * 
+    * @param model
+    *    The data model that has been getting built in the wizard
+    * @return
+    *    The data model that has been updated when before next page 
+    *    is displayed.
     */
-   protected abstract void saveDataToModel();
+   protected abstract DATA_MODEL saveDataToModel(DATA_MODEL model);
    
    /**
     * Method to implement in order to restore data from the data 
     * model to the screen when the screen is activated in the framework
+    * 
+    * @param model
+    *    The data model that has been getting built in the wizard.
     */
-   protected abstract void restoreDataFromModel();  
+   protected abstract void restoreDataFromModel(DATA_MODEL model);  
 }

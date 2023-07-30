@@ -16,19 +16,7 @@ package bjad.swing.wizard.v2;
  *   Ben Dougall
  */
 public interface WizardListener<DATA_MODEL, PAGE_IMPL extends AbstractWizardPage<DATA_MODEL>>
-{
-   /**
-    * Triggered when the first page is displayed
-    * in the wizard framework.
-    */
-   public void firstPageDisplayed();
-   
-   /**
-    * Triggered when the last page is displayed 
-    * in the wizard framework.
-    */
-   public void lastPageDisplayed();
-   
+{   
    /**
     * Triggered when the page has been displayed 
     * within the wizard framework.
@@ -37,6 +25,10 @@ public interface WizardListener<DATA_MODEL, PAGE_IMPL extends AbstractWizardPage
     *    The page that has been displayed.
     * @param pageIndex
     *    The index of the page that was displayed.
+    * @param firstPage
+    *    True if the page being displayed is the first page in the wizard
+    * @param lastPage
+    *    True if the page being displayed is the last page in the wizard
     */
-   public void pageChanged(PAGE_IMPL pageDisplayed, int pageIndex);
+   public void pageChanged(PAGE_IMPL pageDisplayed, int pageIndex, boolean firstPage, boolean lastPage);
 }

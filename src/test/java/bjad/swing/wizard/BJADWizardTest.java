@@ -25,10 +25,25 @@ import org.junit.jupiter.api.Test;
  */
 public class BJADWizardTest implements WizardFinishedListener<String>, PropertyChangeListener
 {
+   /**
+    * The wizard object for the test
+    */
    BJADWizard<String> wizard;
+   /**
+    * The dialog for the test.
+    */
    TestDialog dlg;
+   /**
+    * Flag marking if the wizard is complete.
+    */
    boolean wizardComplete = false;
+   /**
+    * Flag marking the page index event occurred
+    */
    boolean pageIndexEvent = false;
+   /**
+    * Flag marking the page event occurred. 
+    */
    boolean pageEvent = false;
    
    /**
@@ -250,7 +265,7 @@ class TestDialog extends JDialog implements Runnable
          @Override
          public void run()
          {
-            try { Thread.sleep(150L); } catch (Exception ex) {}
+            try { Thread.sleep(150L); } catch (Exception ex) {;}
             wizard.controls().getNextButton().doClick();
             System.out.println(wizard.controls().getNextButton().getText() + " Pressed");
          }
@@ -264,7 +279,7 @@ class TestDialog extends JDialog implements Runnable
          @Override
          public void run()
          {
-            try { Thread.sleep(150L); } catch (Exception ex) {}
+            try { Thread.sleep(150L); } catch (Exception ex) {;}
             wizard.controls().getPreviousButton().doClick();
             System.out.println(wizard.controls().getPreviousButton().getText() + " Pressed");
          }
