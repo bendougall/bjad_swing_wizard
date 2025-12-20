@@ -183,7 +183,7 @@ public abstract class AbstractWizardController<DATA_MODEL, PAGE_IMPL extends Abs
          if (currentPageIndex < pages.size())
          {            
             // Change the page before increasing the page index. 
-            performPagechange(currentPageIndex+1);
+            performPageChange(currentPageIndex+1);
          }
          
          return true;
@@ -211,7 +211,7 @@ public abstract class AbstractWizardController<DATA_MODEL, PAGE_IMPL extends Abs
          if (currentPageIndex > 0)
          {            
             // Change the page before decreasing the page index. 
-            performPagechange(currentPageIndex-1);
+            performPageChange(currentPageIndex-1);
          }
          
          return true;
@@ -279,7 +279,7 @@ public abstract class AbstractWizardController<DATA_MODEL, PAGE_IMPL extends Abs
          if (pages.get(i).getClass().equals(clazz))
          { 
             // yes, change the page.
-            performPagechange(i);
+            performPageChange(i);
             return;
          }
       }
@@ -312,7 +312,7 @@ public abstract class AbstractWizardController<DATA_MODEL, PAGE_IMPL extends Abs
             if ((matchingClassCount-1) == clazzIndex)
             {
                // Change the page.
-               performPagechange(i);
+               performPageChange(i);
                // Exit the method now that the page is changed.
                return;
             }
@@ -334,7 +334,7 @@ public abstract class AbstractWizardController<DATA_MODEL, PAGE_IMPL extends Abs
     */
    public final void changePage(int newIndex)
    {
-      performPagechange(newIndex);
+      performPageChange(newIndex);
    }
    
    /**
@@ -368,7 +368,7 @@ public abstract class AbstractWizardController<DATA_MODEL, PAGE_IMPL extends Abs
     * @param newIndex
     *    The index of the page to change to.
     */
-   protected void performPagechange(int newIndex)
+   protected void performPageChange(int newIndex)
    {  
       // Hide the current page. 
       pages.get(this.currentPageIndex).setVisible(false);
@@ -384,7 +384,7 @@ public abstract class AbstractWizardController<DATA_MODEL, PAGE_IMPL extends Abs
       // Trigger the restoration of the data from the model
       // onto the screen. 
       pages.get(newIndex).restoreDataFromModel(this.dataModel);
-      
+            
       // Trigger any additional logic on the page before 
       // it is displayed to the user. 
       pages.get(newIndex).beforePageDisplayed();
@@ -416,8 +416,12 @@ public abstract class AbstractWizardController<DATA_MODEL, PAGE_IMPL extends Abs
          public void run()
          {
             pages.get(newIndex).afterPageDisplayed();
+            
+            // Mark the page displayed flag as true for the new page. 
+            pages.get(newIndex).markPageDisplayed();
          }
       });
+      
       this.currentPageIndex = newIndex;
       
       // Disable the previous/next button if the option is set, the 

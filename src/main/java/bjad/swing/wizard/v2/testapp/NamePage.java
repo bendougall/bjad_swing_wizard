@@ -114,7 +114,7 @@ public class NamePage extends AbstractWizardPage<IndividualBean>
     */
    @Override
    protected void afterPageDisplayed()
-   {
+   {      
       givenNameField.requestFocusInWindow();
    }
    

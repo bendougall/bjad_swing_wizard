@@ -28,6 +28,13 @@ public abstract class AbstractWizardPage<DATA_MODEL> extends JPanel
    protected DATA_MODEL dataModel;
    
    /**
+    * A flag to store if the page has been displayed previously 
+    * or not. The flag will be set to true following the call to 
+    * afterPageDisplayed() from the wizard controller.
+    */
+   protected boolean pageDisplayed = false;
+   
+   /**
     * Default Constructor, building the panel implementation with 
     * default options. 
     */
@@ -36,6 +43,17 @@ public abstract class AbstractWizardPage<DATA_MODEL> extends JPanel
       this(new FlowLayout(), true);
    }
 
+   /**
+    * Returns if the page has been displayed in the past or not. 
+    * @return
+    *    True if the page has been displayed in the past, false if
+    *    the page has not be displayed. 
+    */
+   public boolean hasPageBeenDisplayedPreviously()
+   {
+      return this.pageDisplayed;
+   }
+   
    /**
     * Constructor, passing the double buffered flag to the 
     * super constructor.
@@ -78,7 +96,7 @@ public abstract class AbstractWizardPage<DATA_MODEL> extends JPanel
    /**
     * Method to override in order to apply logic to the page after 
     * restoreDataFromModel() is called but before the page is 
-    * actually displayed.
+    * actually displayed. 
     */
    protected void beforePageDisplayed()
    {
@@ -94,7 +112,7 @@ public abstract class AbstractWizardPage<DATA_MODEL> extends JPanel
     * <p>
     * <b>Note:</b> This method will be triggered in the framework 
     * on the EDT after the visibility is modified using invokeLater
-    * </p>
+    * </p> 
     */
    protected void afterPageDisplayed()
    {
@@ -159,4 +177,13 @@ public abstract class AbstractWizardPage<DATA_MODEL> extends JPanel
     *    The data model that has been getting built in the wizard.
     */
    protected abstract void restoreDataFromModel(DATA_MODEL model);  
+   
+   /**
+    * Marks the page as displayed so the first display logic can be 
+    * seperated from subsequent displays.
+    */
+   protected void markPageDisplayed()
+   {
+      this.pageDisplayed = true;
+   }
 }
